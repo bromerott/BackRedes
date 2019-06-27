@@ -1,4 +1,5 @@
 import pandas as pd
+import mysql.connector
 class controlador:
     dfUsuarios = pd.DataFrame(columns={'Nombre','Apellido'})
     
@@ -6,12 +7,35 @@ class controlador:
         self.cargarUsuarios()
 
     def cargarUsuarios(self):
-
-        self.dfUsuarios = self.dfUsuarios.append({'Nombre' : 'Bruno' , 'Apellido' : 'Romero'} , ignore_index=True)
-        self.dfUsuarios = self.dfUsuarios.append({'Nombre' : 'Sebastian' , 'Apellido' : 'Villa-Garcia'} , ignore_index=True)   
+        #Cargar las puertas (nPuerta,Tipo,FlujoPersonas, Estado) desde la BD
+        mydb = mysql.connector.connect(
+            host="bdtaredes.c4wrsskhrcvn.us-east-1.rds.amazonaws.com",
+            user="masterUserRedes",
+            passwd="passRedes123456",
+            port="3306",
+            database="bdTARedes"
+        )
+        mydb.connect()
+        self.dfUsuarios = pd.read_sql_query("SELECT nombre,apellido FROM Usuarios; ",mydb)
+        self.dfUsuarios = self.dfUsuarios.rename(columns={"nombre":"Nombre","apellido":"Apellido"})
+        mydb.close()  
 
     def listarUsuarios(self):
+        self.cargarUsuarios()
         return self.dfUsuarios.to_json(orient='records')
 
     def insertarUsuario(self,nombre,apellido):
-        self.dfUsuarios = self.dfUsuarios.append({'Nombre' : nombre , 'Apellido' : apellido} , ignore_index=True)
+        mydb = mysql.connector.connect(
+            host="bdtaredes.c4wrsskhrcvn.us-east-1.rds.amazonaws.com",
+            user="masterUserRedes",
+            passwd="passRedes123456",
+            port="3306",
+            database="bdTARedes"
+        )
+        mydb.connect()
+        query = "INSERT INTO Usuarios(nombre,apellido) VALUES ("+nombre+","+apellido+");"
+        cursor = mydb.cursor()
+        result  = cursor.execute(query)
+        mydb.commit()
+        mydb.close()
+        self.cargarUsuarios()
