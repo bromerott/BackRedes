@@ -14,6 +14,14 @@ dfUsuarios = dfUsuarios.append({'Nombre' : 'Sebastian' , 'Apellido' : 'Villa-Gar
 @app.route('/agapython/listarUsuarios', methods=['GET'])
 def get_Asignaciones():
     return jsonify({dfUsuarios.to_json(orient='records')})
+
+#Metodo de retorno de las Asignaciones
+@app.route('/agapython/insertarUsuarios', methods=['POST'])
+def get_Asignaciones():
+    name = request.form['Nombre']
+    lastname = request.form['Apellido']
+    dfUsuarios = dfUsuarios.append({'Nombre' : name , 'Apellido' : lastname} , ignore_index=True)
+    return jsonify({'Success'})
     
 #Metodo de mapeo de errores
 @app.errorhandler(404)
