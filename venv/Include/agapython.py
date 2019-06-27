@@ -20,6 +20,8 @@ def get_Usuarios():
 def insert_Usuarios():
     name = request.form.get("Nombre")
     lastname = request.form.get("Apellido")
+    print(name)
+    print(lastname)
     contUsuario.insertarUsuario(name,lastname)
     return jsonify({'Success'})
     
