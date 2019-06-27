@@ -19,7 +19,7 @@ def get_Usuarios():
 @app.route('/backRedes/insertarUsuarios', methods=['POST'])
 def insert_Usuarios():
     contUsuario.insertarUsuario(request.json['Nombre'],request.json['Apellido'])
-    return jsonify({'Success'})
+    return jsonify({"Estado":"Success"})
     
 #Metodo de mapeo de errores
 @app.errorhandler(404)

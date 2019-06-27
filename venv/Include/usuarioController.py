@@ -34,7 +34,7 @@ class controlador:
         )
         mydb.connect()
         query = """ INSERT INTO `Usuarios`
-                          (nombre`, `apellido`) VALUES (%s,%s)"""
+                          (`nombre`, `apellido`) VALUES (%s,%s)"""
         insert_tuple = (nombre, apellido)            
         cursor = mydb.cursor(prepared=True)
         result  = cursor.execute(query,insert_tuple)
