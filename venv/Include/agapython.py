@@ -18,11 +18,7 @@ def get_Usuarios():
 #Metodo de retorno de las Asignaciones
 @app.route('/backRedes/insertarUsuarios', methods=['POST'])
 def insert_Usuarios():
-    name = request.form.get("Nombre")
-    lastname = request.form.get("Apellido")
-    print(name)
-    print(lastname)
-    contUsuario.insertarUsuario(name,lastname)
+    contUsuario.insertarUsuario(request.json['Nombre'],request.json['Apellido'])
     return jsonify({'Success'})
     
 #Metodo de mapeo de errores
