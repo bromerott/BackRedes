@@ -3,24 +3,21 @@ from flask import Flask, jsonify, abort
 from flask import make_response
 from flask import request
 import pandas as pd
+import usuarioController
 app = Flask(__name__)
 
-#Base de Datos de Usuarios
-dfUsuarios = pd.DataFrame(columns={'Nombre','Apellido'})
-dfUsuarios = dfUsuarios.append({'Nombre' : 'Bruno' , 'Apellido' : 'Romero'} , ignore_index=True)
-dfUsuarios = dfUsuarios.append({'Nombre' : 'Sebastian' , 'Apellido' : 'Villa-Garcia'} , ignore_index=True)
-
+contUsuario = usuarioController.controlador()
 #Metodo de retorno de las Asignaciones
 @app.route('/agapython/listarUsuarios', methods=['GET'])
-def get_Asignaciones():
-    return jsonify({dfUsuarios.to_json(orient='records')})
+def get_Usuarios():
+    return jsonify(contUsuario.listarUsuarios())
 
 #Metodo de retorno de las Asignaciones
 @app.route('/agapython/insertarUsuarios', methods=['POST'])
-def get_Asignaciones():
+def insert_Usuarios():
     name = request.form['Nombre']
     lastname = request.form['Apellido']
-    dfUsuarios = dfUsuarios.append({'Nombre' : name , 'Apellido' : lastname} , ignore_index=True)
+    contUsuario.insertarUsuario(name,lastname)
     return jsonify({'Success'})
     
 #Metodo de mapeo de errores
