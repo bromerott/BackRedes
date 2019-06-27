@@ -9,4 +9,4 @@ class controlador:
         return self.dfUsuarios.to_json(orient='records')
 
     def insertarUsuario(self,nombre,apellido):
-        dfUsuarios = dfUsuarios.append({'Nombre' : nombre , 'Apellido' : apellido} , ignore_index=True)
+        self.dfUsuarios = self.dfUsuarios.append({'Nombre' : nombre , 'Apellido' : apellido} , ignore_index=True)
