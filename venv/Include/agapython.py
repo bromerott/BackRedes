@@ -4,7 +4,10 @@ from flask import make_response
 from flask import request
 import pandas as pd
 import usuarioController
+from flask_cors import CORS
+
 app = Flask(__name__)
+CORS(app)
 
 contUsuario = usuarioController.controlador()
 #Metodo de retorno de las Asignaciones
