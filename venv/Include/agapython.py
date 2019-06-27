@@ -8,12 +8,12 @@ app = Flask(__name__)
 
 contUsuario = usuarioController.controlador()
 #Metodo de retorno de las Asignaciones
-@app.route('/agapython/listarUsuarios', methods=['GET'])
+@app.route('/backRedes/listarUsuarios', methods=['GET'])
 def get_Usuarios():
-    return jsonify(contUsuario.listarUsuarios())
+    return contUsuario.listarUsuarios()
 
 #Metodo de retorno de las Asignaciones
-@app.route('/agapython/insertarUsuarios', methods=['POST'])
+@app.route('/backRedes/insertarUsuarios', methods=['POST'])
 def insert_Usuarios():
     name = request.form['Nombre']
     lastname = request.form['Apellido']
