@@ -10,7 +10,7 @@ class controlador:
         #Cargar las puertas (nPuerta,Tipo,FlujoPersonas, Estado) desde la BD
         mydb = mysql.connector.connect(
             host="bdtaredes.c4wrsskhrcvn.us-east-1.rds.amazonaws.com",
-            user="masterUserRedes",
+            user="mainUserRedes",
             passwd="passRedes123456",
             port="3306",
             database="bdTARedes"
@@ -27,7 +27,7 @@ class controlador:
     def insertarUsuario(self,nombre,apellido):
         mydb = mysql.connector.connect(
             host="bdtaredes.c4wrsskhrcvn.us-east-1.rds.amazonaws.com",
-            user="masterUserRedes",
+            user="mainUserRedes",
             passwd="passRedes123456",
             port="3306",
             database="bdTARedes"
